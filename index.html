@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ · Perguntas Frequentes · Transparência MG</title>
+    
+    <!-- ==================== ESTILOS E BIBLIOTECAS ==================== -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==================== VARIÁVEIS DE CORES ==================== */
+        :root {
+            --primary-dark: #29435A;
+            --primary-darker: #132837;
+            --accent-red: #B93C42;
+            --accent-bright: #DB233F;
+            --background-light: #EEEFF5;
+            --faq-item-bg: #ffffff;
+            --border-light: #e9ecef;
+        }
+
+        /* ==================== ESTILOS GERAIS COM REGRAS DE SCROLL ==================== */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-light);
+            overflow-y: hidden !important;
+            overflow-x: hidden !important;
+            min-height: auto !important;
+            height: auto !important;
+            position: relative;
+        }
+
+        html {
+            overflow-y: hidden !important;
+            height: auto !important;
+        }
+
+        .main-container {
+            height: auto !important;
+            min-height: auto !important;
+            overflow: visible !important;
+        }
+
+        .container.dashboard-spacing {
+            overflow: visible !important;
+            height: auto !important;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--accent-red);
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .filter-label i { 
+            font-size: 18px; 
+            color: var(--accent-red); 
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            height: 42px;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--accent-red);
+            box-shadow: 0 0 0 2px rgba(185, 60, 66, 0.15);
+            outline: none;
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(to right, var(--primary-darker), var(--primary-dark));
+            border: none;
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            height: 42px;
+        }
+
+        .btn-primary-custom:hover {
+            background: linear-gradient(to right, var(--accent-red), #A32C32);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(185, 60, 66, 0.2);
+            color: white;
+        }
+
+        .btn-secondary-custom {
+            background: white;
+            border: 2px solid var(--primary-darker);
+            color: var(--primary-darker);
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            height: 42px;
+        }
+
+        .btn-secondary-custom:hover {
+            background-color: var(--primary-darker);
+            color: white;
+        }
+
+        .btn-export {
+            background: white;
+            border: 2px solid var(--primary-darker);
+            color: var(--primary-darker);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            height: 38px;
+        }
+
+        .btn-export:hover {
+            background: var(--primary-darker);
+            color: white;
+        }
+
+        .nav-tabs-container {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            margin-top: 10px;
+        }
+
+        .nav-tabs .nav-link {
+            border: none !important;
+            border-radius: 6px !important;
+            padding: 10px 15px !important;
+            font-weight: 600;
+            color: var(--primary-dark) !important;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            display: inline-flex !important;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 100%) !important;
+            color: white !important;
+        }
+
+        /* Estilo para lista de categorias (FAQ) */
+        .faq-category {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--primary-dark);
+        }
+
+        .faq-category h3 {
+            color: var(--primary-darker);
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 10px;
+        }
+
+        .faq-category h3 i {
+            color: var(--accent-red);
+        }
+
+        .faq-item {
+            background: #f9fafc;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-light);
+            transition: all 0.2s;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border-color: #c0c8d0;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .faq-question i {
+            color: var(--accent-bright);
+            font-size: 1.2rem;
+        }
+
+        .faq-answer {
+            color: #1e2b37;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            padding-left: 32px; /* alinhamento com o ícone da pergunta */
+            margin-top: 4px;
+            white-space: pre-line; /* quebras de linha preservadas */
+        }
+
+        .faq-answer a {
+            color: var(--accent-red);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .faq-answer a:hover {
+            text-decoration: underline;
+        }
+
+        .badge-categoria {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .intro-text {
+            background: white;
+            border-radius: 10px;
+            padding: 20px 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--primary-dark);
+            font-size: 15px;
+            text-align: justify;
+            color: #1e2b37;
+        }
+
+        .data-atualizacao-box {
+            background: white;
+            border-radius: 8px;
+            padding: 8px 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .data-atualizacao-box i {
+            font-size: 14px;
+            color: var(--accent-red);
+        }
+
+        /* compartilhamento (mesmo estilo) */
+        .share-dropdown { 
+            position: relative; 
+            display: inline-block; 
+        }
+        
+        .share-options {
+            display: none; 
+            position: absolute; 
+            right: 0; 
+            top: 100%; 
+            background-color: white;
+            min-width: 220px; 
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15); 
+            border-radius: 8px;
+            padding: 8px; 
+            z-index: 1000; 
+            border: 1px solid #dee2e6;
+            margin-top: 5px;
+        }
+        
+        .share-options.show { 
+            display: block; 
+        }
+        
+        .share-options a { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            padding: 10px 12px; 
+            color: var(--primary-dark); 
+            text-decoration: none; 
+            font-size: 14px;
+        }
+        
+        .share-options a:hover { 
+            background-color: #EEEFF5; 
+            color: var(--accent-red); 
+        }
+        
+        .share-options a i { 
+            font-size: 18px; 
+            width: 20px; 
+            text-align: center; 
+        }
+
+        .list-unstyled li {
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="container dashboard-spacing py-3">
+
+        <!-- ==================== TEXTO INTRODUTÓRIO ==================== -->
+        <div class="intro-text">
+            <p style="margin:0; line-height:1.7;">
+                <i class="material-icons me-2" style="color: var(--accent-red); vertical-align: middle;">forum</i>
+                Este FAQ reúne as perguntas mais frequentes sobre o Portal da Transparência de Minas Gerais,
+                organizadas por categoria. As respostas são baseadas em fontes oficiais e visam esclarecer as principais
+                dúvidas dos cidadãos sobre remuneração, programas sociais, acesso à informação e muito mais.
+            </p>
+        </div>
+
+        <!-- ==================== DATA DE ATUALIZAÇÃO ==================== -->
+        <div class="d-flex justify-content-start mb-4">
+            <div class="data-atualizacao-box">
+                <i class="material-icons">update</i> Atualizado em: <span id="data-atualizacao-header">Carregando...</span>
+            </div>
+        </div>
+
+        <!-- ==================== BARRA DE PESQUISA E FILTROS ==================== -->
+        <div class="dashboard-card">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-7">
+                    <label class="filter-label"><i class="material-icons">search</i> Pesquisar nas perguntas e respostas</label>
+                    <input type="text" class="form-control" id="filtroTexto" placeholder="Ex: décimo terceiro, servidor, poupança jovem...">
+                </div>
+                <div class="col-md-3">
+                    <label class="filter-label"><i class="material-icons">category</i> Categoria</label>
+                    <select class="form-select" id="filtroCategoria">
+                        <option value="todas">Todas as categorias</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex gap-2">
+                    <button class="btn-primary-custom w-100" id="btnPesquisar">
+                        <i class="material-icons">filter_alt</i> Filtrar
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 d-flex gap-2">
+                    <button class="btn-secondary-custom" id="btnLimpar">
+                        <i class="material-icons">clear</i> Limpar Filtros
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- barra de ações: export, compartilhar -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center bg-white p-3 rounded-3 shadow-sm mb-3">
+            <div class="d-flex gap-2">
+                <button class="btn-export" id="exportCSV"><i class="material-icons me-1">description</i> Exportar CSV</button>
+                <button class="btn-export" id="exportPDF"><i class="material-icons me-1">picture_as_pdf</i> Exportar PDF</button>
+                <div class="share-dropdown">
+                    <button class="btn-export" id="shareButton"><i class="material-icons me-1">share</i> Compartilhar</button>
+                    <div class="share-options" id="shareOptions">
+                        <a href="#" onclick="copiarLink(event)"><i class="fas fa-link"></i> Copiar Link</a>
+                        <a href="#" onclick="compartilharFacebook(event)"><i class="fab fa-facebook-f"></i> Facebook</a>
+                        <a href="#" onclick="compartilharTwitter(event)"><i class="fab fa-twitter"></i> Twitter</a>
+                        <a href="#" onclick="compartilharWhatsApp(event)"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+            <span class="badge-categoria" id="totalPerguntas">0 perguntas</span>
+        </div>
+
+        <!-- ==================== CONTEÚDO FAQ (dinâmico) ==================== -->
+        <div id="faqContainer"></div>
+
+    </div>
+</div>
+
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.9); display:none; justify-content:center; align-items:center; z-index:9999;">
+    <div class="spinner" style="width:50px; height:50px; border:4px solid rgba(41,67,90,0.1); border-radius:50%; border-top-color:var(--accent-red); animation:spin 1s linear infinite;"></div>
+</div>
+
+<style>
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- jsPDF e autoTable (para PDF) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
+<script>
+(function() {
+    // ==================== CONFIGURAÇÕES ====================
+    // Dados estáticos com base nas perguntas fornecidas (mantendo layout pessoal)
+    const faqData = [
+        { categoria: "Remuneração", pergunta: "Onde estão disponíveis os dados de remuneração de anos anteriores?", resposta: "A remuneração dos servidores ativos do Poder Executivo do Estado de Minas Gerais está disponível no Portal Dados Abertos do Estado de Minas Gerais a partir do ano de 2012. As informações referentes aos servidores inativos também passaram a ser disponibilizadas a partir de maio de 2025." },
+        { categoria: "Remuneração", pergunta: "No Portal da Transparência são divulgadas todas as verbas do salário do servidor público?", resposta: "Não. No Portal da Transparência, as informações sobre o salário dos servidores não são apresentadas de forma detalhada, item por item. Os valores divulgados mostram apenas o total das vantagens recebidas e dos descontos aplicados, resultando na remuneração bruta e na remuneração líquida do servidor. Essas informações permitem ao cidadão conhecer o valor total pago, de forma clara e objetiva." },
+        { categoria: "Remuneração", pergunta: "Onde encontro os dados sobre o décimo terceiro salário?", resposta: "O valor do décimo terceiro salário é lançado no mês de dezembro no Portal e pode ser encontrado na Consulta de Remuneração, na coluna denominada Décimo Terceiro." },
+        { categoria: "Remuneração", pergunta: "Como faço para acessar os dados de remuneração dos servidores ativos, aposentados e pensionistas?", resposta: "- Servidores Ativos e Inativos: Para acessar a Remuneração dos Servidores Ativos, acesse a consulta de Remuneração dos Servidores.\n- Pensionistas: Em relação aos dados dos pensionistas do Estado de Minas Gerais, o Portal da Transparência não divulga essas informações. Tais informações podem ser obtidas junto aos órgãos gestores:\n   • Instituto de Previdência dos Servidores do Estado de Minas Gerais (IPSEMG) – Pensionistas de servidores Civis;\n   • Instituto de Previdência dos Servidores Militares do Estado de Minas Gerais (IPSM) - Pensionistas de servidores militares." },
+        { categoria: "Remuneração", pergunta: "Como faço para acessar dados ou informações não disponíveis na consulta de Remuneração de Servidores?", resposta: "Para solicitar dados ou informações que não estejam disponíveis na consulta de Remuneração de Servidores, é necessário realizar um pedido de acesso à informação por meio do e-SIC, direcionado aos órgãos responsáveis: Secretaria de Estado de Planejamento e Gestão (SEPLAG); Polícia Militar de Minas Gerais (PMMG); Corpo de Bombeiros Militar de Minas Gerais (CBMMG)." },
+        
+        { categoria: "Programas Sociais", pergunta: "Como faço para acessar os empenhos referentes ao Programa Poupança Jovem no Portal da Transparência?", resposta: "As informações sobre os empenhos do Programa Poupança Jovem estão disponíveis na consulta de Despesas do Portal da Transparência. Acesse o link e consulte os dados dos empenhos: Poupança Jovem. Outras informações sobre a data do efetivo pagamento podem ser obtidas por meio do telefone 0800 970 1212, ou do Fale Consoco, da Secretaria de Estado de Educação." },
+        
+        { categoria: "Cargos e Concursos", pergunta: "Onde encontro informações sobre cargos vagos para professor (SEE)?", resposta: "As informações sobre as vagas disponíveis para Professor, da Secretaria de Estado de Educação, devem ser solicitadas por meio do serviço Fale Conosco desta secretaria. Para acesso aos editais de divulgação de vagas para contratação temporária/convocação acesse aqui." },
+        
+        { categoria: "Detran", pergunta: "Onde solicito informações sobre carteira de habilitação, liberação de veículos e multas?", resposta: "As informações sobre veículos, carteira de habilitação e multas devem ser solicitadas no Fale Conosco do portal da Coordenadoria Estadual de Gestão de Trânsito." },
+        
+        { categoria: "Sobre o Portal", pergunta: "Quais informações podem ser encontradas neste Portal e qual a origem delas?", resposta: "As informações disponibilizadas neste Portal abrangem os órgãos e entidades do Poder Executivo Estadual, incluindo fundos, fundações, autarquias e empresas estatais dependentes. As origens incluem SIAFI/MG, SISAP/MG, SIAD/MG, SIGCON, SIGPLAN, entre outros. Detalhamento completo disponível no texto do portal." },
+        { categoria: "Sobre o Portal", pergunta: "Por que o Portal da Transparência foi criado?", resposta: "O Portal da Transparência foi criado para que qualquer cidadão possa ver como o dinheiro público está sendo usado. A ideia é dar mais clareza e abertura às ações do governo, mostrando informações sobre gastos, contratos, salários de servidores, repasses de recursos e outras despesas. Ele existe para garantir que o dinheiro arrecadado com impostos seja aplicado de forma correta e fortalecer o controle social." },
+        { categoria: "Sobre o Portal", pergunta: "Qual a frequência de atualização do Portal da Transparência?", resposta: "Cada tipo de informação é atualizada em períodos diferentes: Diariamente (Despesas, Restos a Pagar, Diárias, Receitas, etc); Mensalmente (Remuneração de Pessoal, Transferências a Municípios); Bimestralmente (Planejamento); Quadrimestralmente (Despesa com Pessoal); Anualmente (Obras Orçadas, Proposta Orçamentária)." },
+        
+        { categoria: "Acesso à Informação", pergunta: "Como solicitar uma informação no Portal da Transparência?", resposta: "Se você quer tirar dúvidas relacionadas ao conteúdo do Portal da Transparência, acesse o Fale Conosco. Para solicitar informações relacionadas aos assuntos tratados pelos órgãos e entidades do Poder Executivo Estadual, clique em Acesso à Informação." },
+        { categoria: "Acesso à Informação", pergunta: "Como faço para realizar uma denúncia?", resposta: "As denúncias devem ser realizadas por meio do sítio eletrônico da Ouvidoria-Geral do Estado de Minas Gerais. Ao registrar a denúncia, você recebe um protocolo para acompanhamento. O prazo para resposta varia entre 30 a 60 dias. É possível fazer denúncia anônima." },
+        
+        { categoria: "Municípios", pergunta: "Quais valores foram repassados ao meu município?", resposta: "Existem diversos tipos de repasses a municípios: Repasses de impostos: Transferências de Impostos a Municípios; Repasses voluntários: Convênios / Parcerias de Recursos (filtro Município); Repasses voluntários e obrigatórios: consulta de Despesa." },
+        
+        { categoria: "Outros Órgãos", pergunta: "Onde encontro informações sobre outros órgãos estaduais, como Secretarias, Autarquias, etc?", resposta: "As informações institucionais de cada órgão do governo estadual (endereço, telefone, horário de funcionamento) podem ser encontradas no Portal MG, em estrutura governamental." },
+        
+        { categoria: "Outros Poderes", pergunta: "Onde se encontram informações sobre os recursos empregados pelo Legislativo, Judiciário e MP?", resposta: "O Portal da Transparência contém informações sobre órgãos dos outros poderes nas seções de Despesas, Receitas e Planejamento. Mais informações podem ser obtidas diretamente nas páginas de transparência da Assembleia, Tribunal de Justiça, Tribunal de Contas, Ministério Público e Defensoria Pública de MG." }
+    ];
+
+    // Cópias para filtro
+    let filteredFaq = [...faqData];
+    let categorias = [...new Set(faqData.map(item => item.categoria))].sort();
+
+    // ==================== INICIALIZAÇÃO ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        popularCategorias();
+        renderFaq(filteredFaq);
+        setupDataAtualizacao();
+        setupEventListeners();
+        ajustarScroll();
+    });
+
+    function ajustarScroll() {
+        document.body.style.overflowY = 'visible';
+        document.documentElement.style.overflowY = 'visible';
+    }
+
+    function setupDataAtualizacao() {
+        const now = new Date();
+        const dataFormatada = now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR');
+        document.getElementById('data-atualizacao-header').textContent = dataFormatada;
+    }
+
+    function popularCategorias() {
+        const select = document.getElementById('filtroCategoria');
+        select.innerHTML = '<option value="todas">Todas as categorias</option>';
+        categorias.forEach(cat => {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            opt.textContent = cat;
+            select.appendChild(opt);
+        });
+    }
+
+    function setupEventListeners() {
+        document.getElementById('btnPesquisar').addEventListener('click', aplicarFiltros);
+        document.getElementById('btnLimpar').addEventListener('click', limparFiltros);
+        document.getElementById('shareButton').addEventListener('click', toggleShare);
+        document.getElementById('exportCSV').addEventListener('click', exportToCSV);
+        document.getElementById('exportPDF').addEventListener('click', exportToPDF);
+
+        // fechar share ao clicar fora
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.share-dropdown')) {
+                document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show'));
+            }
+        });
+    }
+
+    // ==================== FILTROS ====================
+    function aplicarFiltros() {
+        const texto = document.getElementById('filtroTexto').value.toLowerCase().trim();
+        const categoria = document.getElementById('filtroCategoria').value;
+
+        filteredFaq = faqData.filter(item => {
+            if (categoria !== 'todas' && item.categoria !== categoria) return false;
+            if (texto) {
+                const inPergunta = item.pergunta.toLowerCase().includes(texto);
+                const inResposta = item.resposta.toLowerCase().includes(texto);
+                if (!inPergunta && !inResposta) return false;
+            }
+            return true;
+        });
+
+        renderFaq(filteredFaq);
+        atualizarTotal();
+        setTimeout(() => window.parent?.postMessage?.({ iframeHeight: document.body.scrollHeight + 50 }, '*'), 100);
+    }
+
+    function limparFiltros() {
+        document.getElementById('filtroTexto').value = '';
+        document.getElementById('filtroCategoria').value = 'todas';
+        filteredFaq = [...faqData];
+        renderFaq(filteredFaq);
+        atualizarTotal();
+    }
+
+    function atualizarTotal() {
+        document.getElementById('totalPerguntas').innerText = filteredFaq.length + ' pergunta' + (filteredFaq.length !== 1 ? 's' : '');
+    }
+
+    // ==================== RENDERIZAÇÃO ====================
+    function renderFaq(items) {
+        const container = document.getElementById('faqContainer');
+        if (!container) return;
+
+        // agrupar por categoria
+        const grouped = {};
+        items.forEach(item => {
+            if (!grouped[item.categoria]) grouped[item.categoria] = [];
+            grouped[item.categoria].push(item);
+        });
+
+        let html = '';
+        const sortedCats = Object.keys(grouped).sort();
+        sortedCats.forEach(cat => {
+            html += `<div class="faq-category">`;
+            html += `<h3><i class="material-icons">topic</i> ${cat}</h3>`;
+            grouped[cat].forEach((faq, idx) => {
+                html += `<div class="faq-item">`;
+                html += `<div class="faq-question"><i class="material-icons">help_outline</i> ${faq.pergunta}</div>`;
+                html += `<div class="faq-answer">${faq.resposta.replace(/\n/g, '<br>')}</div>`;
+                html += `</div>`;
+            });
+            html += `</div>`;
+        });
+
+        if (sortedCats.length === 0) {
+            html = `<div class="dashboard-card text-center p-5"><i class="material-icons" style="font-size:48px;color:var(--accent-red);">search_off</i><h4 class="mt-3">Nenhuma pergunta encontrada</h4><p>Tente outros termos ou limpe os filtros.</p></div>`;
+        }
+
+        container.innerHTML = html;
+        atualizarTotal();
+    }
+
+    // ==================== COMPARTILHAMENTO ====================
+    window.toggleShare = function() {
+        document.getElementById('shareOptions').classList.toggle('show');
+    };
+
+    window.copiarLink = function(e) { e.preventDefault(); navigator.clipboard.writeText(window.location.href); alert('Link copiado!'); document.getElementById('shareOptions').classList.remove('show'); };
+    window.compartilharFacebook = function(e){ e.preventDefault(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`); };
+    window.compartilharTwitter = function(e){ e.preventDefault(); window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`); };
+    window.compartilharWhatsApp = function(e){ e.preventDefault(); window.open(`https://wa.me/?text=${encodeURIComponent(window.location.href)}`); };
+
+    // ==================== EXPORTAÇÃO ====================
+    function exportToCSV() {
+        const headers = ['Categoria', 'Pergunta', 'Resposta'];
+        const data = filteredFaq.map(i => [i.categoria, i.pergunta, i.resposta]);
+        let csv = headers.join(';') + '\n' + data.map(r => r.map(c => `"${(c||'').replace(/"/g,'""')}"`).join(';')).join('\n');
+        const blob = new Blob(['\uFEFF' + csv], {type: 'text/csv;charset=utf-8;'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'faq_transparencia_mg.csv';
+        link.click();
+    }
+
+    function exportToPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF('p', 'mm', 'a4');
+        doc.setFontSize(14);
+        doc.text('FAQ - Transparência MG', 15, 15);
+        doc.setFontSize(9);
+        doc.text(`Atualizado em: ${new Date().toLocaleString('pt-BR')}`, 15, 22);
+
+        const headers = [['Categoria', 'Pergunta', 'Resposta']];
+        const body = filteredFaq.map(i => [i.categoria, i.pergunta, i.resposta]);
+
+        doc.autoTable({
+            head: headers,
+            body: body,
+            startY: 27,
+            styles: { fontSize: 8, cellPadding: 2 },
+            headStyles: { fillColor: [41,67,90] },
+            columnStyles: { 0: { cellWidth: 30 }, 1: { cellWidth: 60 }, 2: { cellWidth: 'auto' } }
+        });
+        doc.save('faq_transparencia_mg.pdf');
+    }
+
+})();
+</script>
+</body>
+</html>
