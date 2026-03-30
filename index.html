@@ -597,12 +597,12 @@
         console.log('Data de atualização definida:', dataFormatada);
     }
 
-    function showLoading(show) {
-        const overlay = document.getElementById('loadingOverlay');
-        if (overlay) {
-            overlay.style.display = show ? 'flex' : 'none';
-        }
+function showLoading(show) {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) {
+        overlay.style.display = show ? 'flex' : 'none';
     }
+}
 
     function showError(message) {
         const container = document.querySelector('.main-container');
@@ -633,77 +633,87 @@
         });
     }
 
-    function setupEventListeners() {
-        document.getElementById('btnPesquisar').addEventListener('click', aplicarFiltros);
-        document.getElementById('btnLimpar').addEventListener('click', limparFiltros);
-        document.getElementById('shareButton').addEventListener('click', toggleShare);
-        document.getElementById('exportCSV').addEventListener('click', exportToCSV);
-        document.getElementById('exportPDF').addEventListener('click', exportToPDF);
+function setupEventListeners() {
+    // Remove event listener duplicado do btnPesquisar
+    const btnPesquisar = document.getElementById('btnPesquisar');
+    const btnLimpar = document.getElementById('btnLimpar');
+    
+    // Remove listeners antigos se existirem
+    const newBtnPesquisar = btnPesquisar.cloneNode(true);
+    const newBtnLimpar = btnLimpar.cloneNode(true);
+    btnPesquisar.parentNode.replaceChild(newBtnPesquisar, btnPesquisar);
+    btnLimpar.parentNode.replaceChild(newBtnLimpar, btnLimpar);
+    
+    // Adiciona novos listeners
+    newBtnPesquisar.addEventListener('click', aplicarFiltros);
+    newBtnLimpar.addEventListener('click', limparFiltros);
+    
+    document.getElementById('shareButton')?.addEventListener('click', toggleShare);
+    document.getElementById('exportCSV')?.addEventListener('click', exportToCSV);
+    document.getElementById('exportPDF')?.addEventListener('click', exportToPDF);
 
-        // fechar share ao clicar fora
-        window.addEventListener('click', (e) => {
-            if (!e.target.closest('.share-dropdown')) {
-                document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show'));
-            }
-        });
-        
-        // Atualizar altura quando a janela for redimensionada
-        window.addEventListener('resize', function() {
-            clearTimeout(window.resizeTimeout);
-            window.resizeTimeout = setTimeout(() => {
-                iframeUpdateHeight();
-            }, 200);
-        });
-    }
+    // fechar share ao clicar fora
+    window.addEventListener('click', (e) => {
+        if (!e.target.closest('.share-dropdown')) {
+            document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show'));
+        }
+    });
+    
+    // Adiciona evento de tecla Enter no campo de pesquisa
+    const filtroTexto = document.getElementById('filtroTexto');
+    filtroTexto?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            aplicarFiltros();
+        }
+    });
+    
+    // Atualizar altura quando a janela for redimensionada
+    window.addEventListener('resize', function() {
+        clearTimeout(window.resizeTimeout);
+        window.resizeTimeout = setTimeout(() => {
+            iframeUpdateHeight();
+        }, 200);
+    });
+}
 
     // ==================== FILTROS ====================
-    function aplicarFiltros() {
-        showLoading(true);
-        
-        setTimeout(() => {
-            const texto = document.getElementById('filtroTexto').value.toLowerCase().trim();
-            const categoria = document.getElementById('filtroCategoria').value;
+function aplicarFiltros() {
+    // Remove o setTimeout e o loading que travam a interação
+    const texto = document.getElementById('filtroTexto').value.toLowerCase().trim();
+    const categoria = document.getElementById('filtroCategoria').value;
 
-            filteredFaq = faqData.filter(item => {
-                if (categoria !== 'todas' && item.categoria !== categoria) return false;
-                if (texto) {
-                    const inPergunta = item.pergunta.toLowerCase().includes(texto);
-                    const inResposta = item.resposta.toLowerCase().includes(texto);
-                    if (!inPergunta && !inResposta) return false;
-                }
-                return true;
-            });
+    filteredFaq = faqData.filter(item => {
+        if (categoria !== 'todas' && item.categoria !== categoria) return false;
+        if (texto) {
+            const inPergunta = item.pergunta.toLowerCase().includes(texto);
+            const inResposta = item.resposta.toLowerCase().includes(texto);
+            if (!inPergunta && !inResposta) return false;
+        }
+        return true;
+    });
 
-            renderFaq(filteredFaq);
-            atualizarTotal();
-            
-            showLoading(false);
-            
-            // Atualizar altura do iframe após renderização
-            setTimeout(() => {
-                iframeUpdateHeight();
-            }, 50);
-        }, 50);
-    }
+    renderFaq(filteredFaq);
+    atualizarTotal();
+    
+    // Atualizar altura do iframe após renderização
+    setTimeout(() => {
+        iframeUpdateHeight();
+    }, 100);
+}
 
-    function limparFiltros() {
-        showLoading(true);
-        
-        setTimeout(() => {
-            document.getElementById('filtroTexto').value = '';
-            document.getElementById('filtroCategoria').value = 'todas';
-            filteredFaq = [...faqData];
-            renderFaq(filteredFaq);
-            atualizarTotal();
-            
-            showLoading(false);
-            
-            // Atualizar altura do iframe após renderização
-            setTimeout(() => {
-                iframeUpdateHeight();
-            }, 50);
-        }, 50);
-    }
+function limparFiltros() {
+    document.getElementById('filtroTexto').value = '';
+    document.getElementById('filtroCategoria').value = 'todas';
+    filteredFaq = [...faqData];
+    renderFaq(filteredFaq);
+    atualizarTotal();
+    
+    // Atualizar altura do iframe após renderização
+    setTimeout(() => {
+        iframeUpdateHeight();
+    }, 100);
+}
 
     function atualizarTotal() {
         const total = filteredFaq.length;
