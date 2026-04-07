@@ -363,8 +363,7 @@
             <p style="margin:0; line-height:1.7;">
                 <i class="material-icons me-2" style="color: var(--accent-red); vertical-align: middle;">forum</i>
                 Este FAQ reúne as perguntas mais frequentes sobre o Portal da Transparência de Minas Gerais,
-                organizadas por categoria. As respostas são baseadas em fontes oficiais e visam esclarecer as principais
-                dúvidas dos cidadãos sobre remuneração, programas sociais, acesso à informação e muito mais.
+                organizadas por categoria. 
             </p>
         </div>
 
@@ -442,290 +441,37 @@
 
 <script>
 (function() {
-    // ==================== CONFIGURAÇÕES ====================
-    // Dados estáticos com base nas perguntas fornecidas
+    // ==================== DADOS DO FAQ ====================
     const faqData = [
-        { categoria: "Remuneração", pergunta: "Onde estão disponíveis os dados de remuneração de anos anteriores?", resposta: "A remuneração dos servidores ativos do Poder Executivo do Estado de Minas Gerais está disponível no Portal Dados Abertos do Estado de Minas Gerais a partir do ano de 2012. As informações referentes aos servidores inativos também passaram a ser disponibilizadas a partir de maio de 2025." },
-        { categoria: "Remuneração", pergunta: "No Portal da Transparência são divulgadas todas as verbas do salário do servidor público?", resposta: "Não. No Portal da Transparência, as informações sobre o salário dos servidores não são apresentadas de forma detalhada, item por item. Os valores divulgados mostram apenas o total das vantagens recebidas e dos descontos aplicados, resultando na remuneração bruta e na remuneração líquida do servidor. Essas informações permitem ao cidadão conhecer o valor total pago, de forma clara e objetiva." },
-        { categoria: "Remuneração", pergunta: "Quais o valores podem ser encontrados na remuneração bruta do servidor?", resposta: "Na remuneração bruta consta a remuneração básica do servidor, o desconto de abate teto, se aplicável, outros eventuais como: auxílio transporte, auxílio alimentação, gratificações e verbas atrasadas." },        { categoria: "Remuneração", pergunta: "Onde encontro os dados sobre o décimo terceiro salário?", resposta: "O valor do décimo terceiro salário é lançado no mês de dezembro no Portal e pode ser encontrado na Consulta de Remuneração, na coluna denominada Décimo Terceiro." },
+        { categoria: "Remuneração", pergunta: "Onde estão disponíveis os dados de remuneração de anos anteriores?", resposta: "A remuneração dos servidores ativos do Poder Executivo do Estado de Minas Gerais está disponível no Portal Dados Abertos do Estado de Minas Gerais a partir do ano de 2012." },
+        { categoria: "Remuneração", pergunta: "No Portal da Transparência são divulgadas todas as verbas do salário do servidor público?", resposta: "Não. No Portal da Transparência são divulgadas a remuneração básica do servidor, descontos do abate teto e os descontos obrigatórios por lei (Imposto de Renda Retido na Fonte (IRRF) e a Contribuição Previdenciária). Descontos de natureza pessoal do servidor, como empréstimos consignados, contribuições sindicais, descontos de assistência saúde, de pensões alimentícias, ou outros de cunho pessoal, relativos à intimidade, vida privada, honra e imagem, não são informados no Portal da Transparência. Por esses motivos, o campo 'Remuneração Líquida' divulgado no Portal da Transparência pode apresentar divergências em relação ao valor líquida do contracheque de cada servidor público." },
+        { categoria: "Remuneração", pergunta: "Quais o valores podem ser encontrados na remuneração do servidor?", resposta: "A coluna Remuneração é composta pela soma das parcelas remuneratórias referentes ao cargo efetivo, à função gratificada ou ao cargo comissionado." },        
+        { categoria: "Remuneração", pergunta: "Onde encontro os dados sobre o décimo terceiro salário?", resposta: "O valor do décimo terceiro salário é lançado no mês de dezembro no Portal e pode ser encontrado na Consulta de Remuneração, no detalhamento de cada servidor." },
+        { categoria: "Remuneração", pergunta: "Por que a remuneração líquida de dezembro é maior que a remuneração?", resposta: "O valor da remuneração líquida de dezembro inclui os valores recebidos pelo servidor de décimo terceiro, e na remuneração consta apenas o valor da Remuneração Básica do servidor. No detalhamento de cada servidor, é possível conferir qual verba compõe o salário de cada servidor." },
         { categoria: "Remuneração", pergunta: "Como faço para acessar os dados de remuneração dos servidores ativos, aposentados e pensionistas?", resposta: "- Servidores Ativos e Inativos: Para acessar a Remuneração dos Servidores Ativos, acesse a consulta de Remuneração dos Servidores.\n- Pensionistas: Em relação aos dados dos pensionistas do Estado de Minas Gerais, o Portal da Transparência não divulga essas informações. Tais informações podem ser obtidas junto aos órgãos gestores:\n   • Instituto de Previdência dos Servidores do Estado de Minas Gerais (IPSEMG) – Pensionistas de servidores Civis;\n   • Instituto de Previdência dos Servidores Militares do Estado de Minas Gerais (IPSM) - Pensionistas de servidores militares." },
         { categoria: "Remuneração", pergunta: "Como faço para acessar dados ou informações não disponíveis na consulta de Remuneração de Servidores?", resposta: "Para solicitar dados ou informações que não estejam disponíveis na consulta de Remuneração de Servidores, é necessário realizar um pedido de acesso à informação por meio do e-SIC, direcionado aos órgãos responsáveis: Secretaria de Estado de Planejamento e Gestão (SEPLAG); Polícia Militar de Minas Gerais (PMMG); Corpo de Bombeiros Militar de Minas Gerais (CBMMG)." },
-        
         { categoria: "Programas Sociais", pergunta: "Como faço para acessar os empenhos referentes ao Programa Poupança Jovem no Portal da Transparência?", resposta: "As informações sobre os empenhos do Programa Poupança Jovem estão disponíveis na consulta de Despesas do Portal da Transparência. Acesse o link e consulte os dados dos empenhos: Poupança Jovem. Outras informações sobre a data do efetivo pagamento podem ser obtidas por meio do telefone 0800 970 1212, ou do Fale Consoco, da Secretaria de Estado de Educação." },
-        
         { categoria: "Cargos e Concursos", pergunta: "Onde encontro informações sobre cargos vagos para professor (SEE)?", resposta: "As informações sobre as vagas disponíveis para Professor, da Secretaria de Estado de Educação, devem ser solicitadas por meio do serviço Fale Conosco desta secretaria. Para acesso aos editais de divulgação de vagas para contratação temporária/convocação acesse aqui." },
-        
         { categoria: "Detran", pergunta: "Onde solicito informações sobre carteira de habilitação, liberação de veículos e multas?", resposta: "As informações sobre veículos, carteira de habilitação e multas devem ser solicitadas no Fale Conosco do portal da Coordenadoria Estadual de Gestão de Trânsito." },
-        
         { categoria: "Sobre o Portal", pergunta: "Quais informações podem ser encontradas neste Portal e qual a origem delas?", resposta: "As informações disponibilizadas neste Portal abrangem os órgãos e entidades do Poder Executivo Estadual, incluindo fundos, fundações, autarquias e empresas estatais dependentes. As origens incluem SIAFI/MG, SISAP/MG, SIAD/MG, SIGCON, SIGPLAN, entre outros. Detalhamento completo disponível no texto do portal." },
         { categoria: "Sobre o Portal", pergunta: "Por que o Portal da Transparência foi criado?", resposta: "O Portal da Transparência foi criado para que qualquer cidadão possa ver como o dinheiro público está sendo usado. A ideia é dar mais clareza e abertura às ações do governo, mostrando informações sobre gastos, contratos, salários de servidores, repasses de recursos e outras despesas. Ele existe para garantir que o dinheiro arrecadado com impostos seja aplicado de forma correta e fortalecer o controle social." },
         { categoria: "Sobre o Portal", pergunta: "Qual a frequência de atualização do Portal da Transparência?", resposta: "Cada tipo de informação é atualizada em períodos diferentes: Diariamente (Despesas, Restos a Pagar, Diárias, Receitas, etc); Mensalmente (Remuneração de Pessoal, Transferências a Municípios); Bimestralmente (Planejamento); Quadrimestralmente (Despesa com Pessoal); Anualmente (Obras Orçadas, Proposta Orçamentária)." },
-        
         { categoria: "Acesso à Informação", pergunta: "Como solicitar uma informação no Portal da Transparência?", resposta: "Se você quer tirar dúvidas relacionadas ao conteúdo do Portal da Transparência, acesse o Fale Conosco. Para solicitar informações relacionadas aos assuntos tratados pelos órgãos e entidades do Poder Executivo Estadual, clique em Acesso à Informação." },
         { categoria: "Acesso à Informação", pergunta: "Como faço para realizar uma denúncia?", resposta: "As denúncias devem ser realizadas por meio do sítio eletrônico da Ouvidoria-Geral do Estado de Minas Gerais. Ao registrar a denúncia, você recebe um protocolo para acompanhamento. O prazo para resposta varia entre 30 a 60 dias. É possível fazer denúncia anônima." },
-        
         { categoria: "Municípios", pergunta: "Quais valores foram repassados ao meu município?", resposta: "Existem diversos tipos de repasses a municípios: Repasses de impostos: Transferências de Impostos a Municípios; Repasses voluntários: Convênios / Parcerias de Recursos (filtro Município); Repasses voluntários e obrigatórios: consulta de Despesa." },
-        
         { categoria: "Outros Órgãos", pergunta: "Onde encontro informações sobre outros órgãos estaduais, como Secretarias, Autarquias, etc?", resposta: "As informações institucionais de cada órgão do governo estadual (endereço, telefone, horário de funcionamento) podem ser encontradas no Portal MG, em estrutura governamental." },
-        
         { categoria: "Outros Poderes", pergunta: "Onde se encontram informações sobre os recursos empregados pelo Legislativo, Judiciário e MP?", resposta: "O Portal da Transparência contém informações sobre órgãos dos outros poderes nas seções de Despesas, Receitas e Planejamento. Mais informações podem ser obtidas diretamente nas páginas de transparência da Assembleia, Tribunal de Justiça, Tribunal de Contas, Ministério Público e Defensoria Pública de MG." }
     ];
 
-    // Cópias para filtro
     let filteredFaq = [...faqData];
     let categorias = [...new Set(faqData.map(item => item.categoria))].sort();
 
-    // ==================== FUNÇÕES DE INICIALIZAÇÃO ====================
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('FAQ Transparência MG carregado com sucesso!');
-        
-        popularCategorias();
-        renderFaq(filteredFaq);
-        setupAtualizacaoData();
-        setupEventListeners();
-        
-        // Remover problemas de scroll e ajustar altura do iframe
-        removeAllScrollIssues();
-        
-        // Atualizar altura do iframe após renderização inicial
-        setTimeout(() => {
-            iframeUpdateHeight();
-        }, 100);
-        
-        // Configurar observador para mudanças no DOM que afetam altura
-        setupMutationObserver();
-    });
-
-    // ==================== FUNÇÕES DE SCROLL E IFRAME ====================
-    function removeAllScrollIssues() {
-        console.log('Removendo problemas de scroll duplo...');
-        
-        const elements = [
-            document.body,
-            document.documentElement,
-            document.querySelector('.main-container'),
-            document.querySelector('.container.dashboard-spacing'),
-            ...document.querySelectorAll('.faq-category'),
-            ...document.querySelectorAll('.dashboard-card'),
-            ...document.querySelectorAll('.row'),
-            ...document.querySelectorAll('.col'),
-            ...document.querySelectorAll('.container')
-        ];
-        
-        elements.forEach(el => {
-            if (el && el.style) {
-                el.style.overflowY = 'visible';
-                el.style.overflowX = 'visible';
-                el.style.overflow = 'visible';
-            }
-        });
-        
-        document.body.classList.remove('overflow-auto');
-        document.documentElement.classList.remove('overflow-auto');
-        document.documentElement.style.height = 'auto';
-        document.body.style.height = 'auto';
-    }
-
-    function iframeUpdateHeight() {
-        console.log('Atualizando altura do iframe...');
-        
-        // Pequeno truque para forçar reflow
-        document.body.style.display = 'none';
-        document.body.offsetHeight; // Força reflow
-        document.body.style.display = '';
-        
-        const html = document.documentElement;
-        const body = document.body;
-        
-        const scrollHeight = Math.max(
-            body.scrollHeight,
-            html.scrollHeight,
-            body.offsetHeight,
-            html.offsetHeight
-        );
-        
-        const finalHeight = scrollHeight + 10; // Pequeno padding extra
-        
-        console.log('Altura calculada:', finalHeight);
-        
-        try {
-            // Envia mensagem para o pai (iframe)
-            window.parent.postMessage({ iframeHeight: finalHeight }, '*');
-            
-            // Também dispara evento personalizado para outros scripts
-            const event = new CustomEvent('iframeHeightUpdated', { detail: { height: finalHeight } });
-            window.dispatchEvent(event);
-            
-        } catch (error) {
-            console.log('Não foi possível enviar mensagem para o pai (pode não estar em iframe)');
-        }
-        
-        return finalHeight;
-    }
-
-    function setupMutationObserver() {
-        // Observa mudanças no DOM que possam alterar a altura
-        const targetNode = document.getElementById('faqContainer');
-        if (!targetNode) return;
-        
-        const observer = new MutationObserver(function(mutations) {
-            // Debounce para evitar muitas chamadas
-            clearTimeout(window.observerTimeout);
-            window.observerTimeout = setTimeout(() => {
-                iframeUpdateHeight();
-            }, 250);
-        });
-        
-        observer.observe(targetNode, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            characterData: true
-        });
-        
-        console.log('MutationObserver configurado para atualizações de altura');
-    }
-
-    // ==================== FUNÇÕES DE UTILIDADE ====================
-    function setupAtualizacaoData() {
-        const now = new Date();
-        const dataFormatada = now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR');
-        const elementoData = document.getElementById('data-atualizacao-header');
-        if (elementoData) {
-            elementoData.textContent = dataFormatada;
-        }
-        console.log('Data de atualização definida:', dataFormatada);
-    }
-
-function showLoading(show) {
-    const overlay = document.getElementById('loadingOverlay');
-    if (overlay) {
-        overlay.style.display = show ? 'flex' : 'none';
-    }
-}
-
-    function showError(message) {
-        const container = document.querySelector('.main-container');
-        if (!container) return;
-        
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'alert alert-danger alert-dismissible fade show';
-        errorDiv.innerHTML = `
-            <i class="material-icons me-2" style="vertical-align: middle;">warning</i> 
-            ${message} 
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        container.prepend(errorDiv);
-        
-        setTimeout(() => {
-            errorDiv.remove();
-        }, 5000);
-    }
-
-    function popularCategorias() {
-        const select = document.getElementById('filtroCategoria');
-        select.innerHTML = '<option value="todas">Todas as categorias</option>';
-        categorias.forEach(cat => {
-            const opt = document.createElement('option');
-            opt.value = cat;
-            opt.textContent = cat;
-            select.appendChild(opt);
-        });
-    }
-
-function setupEventListeners() {
-    // Remove event listener duplicado do btnPesquisar
-    const btnPesquisar = document.getElementById('btnPesquisar');
-    const btnLimpar = document.getElementById('btnLimpar');
-    
-    // Remove listeners antigos se existirem
-    const newBtnPesquisar = btnPesquisar.cloneNode(true);
-    const newBtnLimpar = btnLimpar.cloneNode(true);
-    btnPesquisar.parentNode.replaceChild(newBtnPesquisar, btnPesquisar);
-    btnLimpar.parentNode.replaceChild(newBtnLimpar, btnLimpar);
-    
-    // Adiciona novos listeners
-    newBtnPesquisar.addEventListener('click', aplicarFiltros);
-    newBtnLimpar.addEventListener('click', limparFiltros);
-    
-    document.getElementById('shareButton')?.addEventListener('click', toggleShare);
-    document.getElementById('exportCSV')?.addEventListener('click', exportToCSV);
-    document.getElementById('exportPDF')?.addEventListener('click', exportToPDF);
-
-    // fechar share ao clicar fora
-    window.addEventListener('click', (e) => {
-        if (!e.target.closest('.share-dropdown')) {
-            document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show'));
-        }
-    });
-    
-    // Adiciona evento de tecla Enter no campo de pesquisa
-    const filtroTexto = document.getElementById('filtroTexto');
-    filtroTexto?.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            aplicarFiltros();
-        }
-    });
-    
-    // Atualizar altura quando a janela for redimensionada
-    window.addEventListener('resize', function() {
-        clearTimeout(window.resizeTimeout);
-        window.resizeTimeout = setTimeout(() => {
-            iframeUpdateHeight();
-        }, 200);
-    });
-}
-
-    // ==================== FILTROS ====================
-function aplicarFiltros() {
-    // Remove o setTimeout e o loading que travam a interação
-    const texto = document.getElementById('filtroTexto').value.toLowerCase().trim();
-    const categoria = document.getElementById('filtroCategoria').value;
-
-    filteredFaq = faqData.filter(item => {
-        if (categoria !== 'todas' && item.categoria !== categoria) return false;
-        if (texto) {
-            const inPergunta = item.pergunta.toLowerCase().includes(texto);
-            const inResposta = item.resposta.toLowerCase().includes(texto);
-            if (!inPergunta && !inResposta) return false;
-        }
-        return true;
-    });
-
-    renderFaq(filteredFaq);
-    atualizarTotal();
-    
-    // Atualizar altura do iframe após renderização
-    setTimeout(() => {
-        iframeUpdateHeight();
-    }, 100);
-}
-
-function limparFiltros() {
-    document.getElementById('filtroTexto').value = '';
-    document.getElementById('filtroCategoria').value = 'todas';
-    filteredFaq = [...faqData];
-    renderFaq(filteredFaq);
-    atualizarTotal();
-    
-    // Atualizar altura do iframe após renderização
-    setTimeout(() => {
-        iframeUpdateHeight();
-    }, 100);
-}
-
-    function atualizarTotal() {
-        const total = filteredFaq.length;
-        document.getElementById('totalPerguntas').innerText = total + ' pergunta' + (total !== 1 ? 's' : '');
-    }
-
-    // ==================== RENDERIZAÇÃO ====================
+    // ==================== FUNÇÃO PRINCIPAL DE RENDERIZAÇÃO ====================
     function renderFaq(items) {
         const container = document.getElementById('faqContainer');
         if (!container) return;
 
-        // agrupar por categoria
+        // Agrupar por categoria
         const grouped = {};
         items.forEach(item => {
             if (!grouped[item.categoria]) grouped[item.categoria] = [];
@@ -736,142 +482,123 @@ function limparFiltros() {
         const sortedCats = Object.keys(grouped).sort();
         
         sortedCats.forEach(cat => {
-            html += `<div class="faq-category">`;
-            html += `<h3><i class="material-icons">topic</i> ${cat}</h3>`;
+            html += '<div class="faq-category">';
+            html += '<h3><i class="material-icons">topic</i> ' + cat + '</h3>';
             
-            grouped[cat].forEach((faq) => {
-                html += `<div class="faq-item">`;
-                html += `<div class="faq-question"><i class="material-icons">help_outline</i> ${faq.pergunta}</div>`;
-                html += `<div class="faq-answer">${faq.resposta.replace(/\n/g, '<br>')}</div>`;
-                html += `</div>`;
+            grouped[cat].forEach(function(faq) {
+                html += '<div class="faq-item">';
+                html += '<div class="faq-question"><i class="material-icons">help_outline</i> ' + faq.pergunta + '</div>';
+                html += '<div class="faq-answer">' + faq.resposta.replace(/\n/g, '<br>') + '</div>';
+                html += '</div>';
             });
             
-            html += `</div>`;
+            html += '</div>';
         });
 
         if (sortedCats.length === 0) {
-            html = `<div class="dashboard-card text-center p-5">
-                <i class="material-icons" style="font-size:48px;color:var(--accent-red);">search_off</i>
-                <h4 class="mt-3">Nenhuma pergunta encontrada</h4>
-                <p>Tente outros termos ou limpe os filtros.</p>
-            </div>`;
+            html = '<div class="dashboard-card text-center p-5">' +
+                '<i class="material-icons" style="font-size:48px;color:var(--accent-red);">search_off</i>' +
+                '<h4 class="mt-3">Nenhuma pergunta encontrada</h4>' +
+                '<p>Tente outros termos ou limpe os filtros.</p>' +
+                '</div>';
         }
 
         container.innerHTML = html;
-        atualizarTotal();
+        
+        // Atualizar contador
+        const total = items.length;
+        const totalEl = document.getElementById('totalPerguntas');
+        if (totalEl) {
+            totalEl.innerText = total + ' pergunta' + (total !== 1 ? 's' : '');
+        }
+        
+        console.log('FAQ renderizado com ' + total + ' perguntas');
     }
 
-    // ==================== COMPARTILHAMENTO ====================
-    window.toggleShare = function() {
-        document.getElementById('shareOptions').classList.toggle('show');
-    };
+    // ==================== FUNÇÕES DE FILTRO ====================
+    function aplicarFiltros() {
+        const texto = document.getElementById('filtroTexto').value.toLowerCase().trim();
+        const categoria = document.getElementById('filtroCategoria').value;
 
-    window.copiarLink = function(e) { 
-        e.preventDefault(); 
-        navigator.clipboard.writeText(window.location.href); 
-        alert('Link copiado!'); 
-        document.getElementById('shareOptions').classList.remove('show'); 
-    };
-    
-    window.compartilharFacebook = function(e){ 
-        e.preventDefault(); 
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`); 
-    };
-    
-    window.compartilharTwitter = function(e){ 
-        e.preventDefault(); 
-        window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`); 
-    };
-    
-    window.compartilharWhatsApp = function(e){ 
-        e.preventDefault(); 
-        window.open(`https://wa.me/?text=${encodeURIComponent(window.location.href)}`); 
-    };
+        filteredFaq = faqData.filter(function(item) {
+            if (categoria !== 'todas' && item.categoria !== categoria) return false;
+            if (texto) {
+                const inPergunta = item.pergunta.toLowerCase().includes(texto);
+                const inResposta = item.resposta.toLowerCase().includes(texto);
+                if (!inPergunta && !inResposta) return false;
+            }
+            return true;
+        });
 
-    // ==================== EXPORTAÇÃO ====================
-    function exportToCSV() {
-        showLoading(true);
-        
-        setTimeout(() => {
-            const headers = ['Categoria', 'Pergunta', 'Resposta'];
-            const data = filteredFaq.map(i => [i.categoria, i.pergunta, i.resposta]);
-            let csv = headers.join(';') + '\n' + data.map(r => r.map(c => `"${(c||'').replace(/"/g,'""')}"`).join(';')).join('\n');
-            
-            const blob = new Blob(['\uFEFF' + csv], {type: 'text/csv;charset=utf-8;'});
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'faq_transparencia_mg.csv';
-            link.click();
-            
-            showLoading(false);
-        }, 50);
+        renderFaq(filteredFaq);
+        console.log('Filtros aplicados - Total:', filteredFaq.length);
     }
 
-    function exportToPDF() {
-        showLoading(true);
+    function limparFiltros() {
+        document.getElementById('filtroTexto').value = '';
+        document.getElementById('filtroCategoria').value = 'todas';
+        filteredFaq = [...faqData];
+        renderFaq(filteredFaq);
+        console.log('Filtros limpos');
+    }
+
+    // ==================== POPULAR CATEGORIAS ====================
+    function popularCategorias() {
+        const select = document.getElementById('filtroCategoria');
+        if (!select) return;
         
-        setTimeout(() => {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF('p', 'mm', 'a4');
-            
-            doc.setFontSize(14);
-            doc.text('FAQ - Transparência MG', 15, 15);
-            
-            doc.setFontSize(9);
-            doc.text(`Atualizado em: ${new Date().toLocaleString('pt-BR')}`, 15, 22);
+        select.innerHTML = '<option value="todas">Todas as categorias</option>';
+        categorias.forEach(function(cat) {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            opt.textContent = cat;
+            select.appendChild(opt);
+        });
+    }
 
-            const headers = [['Categoria', 'Pergunta', 'Resposta']];
-            const body = filteredFaq.map(i => [i.categoria, i.pergunta, i.resposta]);
+    // ==================== DATA DE ATUALIZAÇÃO ====================
+    function setupAtualizacaoData() {
+        const now = new Date();
+        const dataFormatada = now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR');
+        const elementoData = document.getElementById('data-atualizacao-header');
+        if (elementoData) {
+            elementoData.textContent = dataFormatada;
+        }
+    }
 
-            doc.autoTable({
-                head: headers,
-                body: body,
-                startY: 27,
-                styles: { fontSize: 8, cellPadding: 2 },
-                headStyles: { fillColor: [41,67,90] },
-                columnStyles: { 
-                    0: { cellWidth: 30 }, 
-                    1: { cellWidth: 60 }, 
-                    2: { cellWidth: 'auto' } 
+    // ==================== INICIALIZAÇÃO ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('FAQ Transparência MG - Inicializando...');
+        
+        popularCategorias();
+        renderFaq(filteredFaq);
+        setupAtualizacaoData();
+        
+        // Configurar eventos
+        const btnPesquisar = document.getElementById('btnPesquisar');
+        const btnLimpar = document.getElementById('btnLimpar');
+        
+        if (btnPesquisar) {
+            btnPesquisar.addEventListener('click', aplicarFiltros);
+        }
+        
+        if (btnLimpar) {
+            btnLimpar.addEventListener('click', limparFiltros);
+        }
+        
+        // Enter no campo de pesquisa
+        const filtroTexto = document.getElementById('filtroTexto');
+        if (filtroTexto) {
+            filtroTexto.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    aplicarFiltros();
                 }
             });
-            
-            doc.save('faq_transparencia_mg.pdf');
-            showLoading(false);
-        }, 50);
-    }
-
-    // ==================== FUNÇÕES ADICIONAIS (mantidas do original) ====================
-    function horasParaDecimal(horasStr) {
-        if (!horasStr) return 0;
-        const partes = horasStr.split(':');
-        if (partes.length !== 3) return 0;
-        const horas = parseInt(partes[0]) || 0;
-        const minutos = parseInt(partes[1]) || 0;
-        const segundos = parseInt(partes[2]) || 0;
-        return horas + (minutos / 60) + (segundos / 3600);
-    }
-
-    function formatarHoras(horasDecimal) {
-        const horas = Math.floor(horasDecimal);
-        const minutos = Math.round((horasDecimal - horas) * 60);
-        return `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;
-    }
-
-    function formatarDataParaBR(dataStr) {
-        if (!dataStr) return '';
-        if (dataStr.includes('/')) {
-            return dataStr;
         }
-        if (dataStr.includes('-')) {
-            const partes = dataStr.split('-');
-            if (partes.length === 3) {
-                return `${partes[2]}/${partes[1]}/${partes[0]}`;
-            }
-        }
-        return dataStr;
-    }
-
+        
+        console.log('FAQ inicializado com sucesso!');
+    });
 })();
 </script>
 </body>
