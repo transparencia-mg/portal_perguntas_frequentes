@@ -23,26 +23,34 @@
             --border-light: #e9ecef;
         }
 
-        /* ==================== ESTILOS GERAIS COM REGRAS DE SCROLL ==================== */
+        /* ==================== ESTILOS GERAIS - SCROLL NORMAL ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--background-light);
             padding-bottom: 15px;
-            overflow-y: hidden !important;
+            overflow-y: auto !important;  /* Permite rolagem vertical */
             overflow-x: hidden !important;
-            min-height: auto !important;
+            min-height: 100vh !important;
             height: auto !important;
             position: relative;
         }
 
         html {
-            overflow-y: hidden !important;
+            overflow-y: auto !important;  /* Permite rolagem vertical */
+            overflow-x: hidden !important;
             height: auto !important;
+            min-height: 100vh !important;
         }
 
         .main-container {
             height: auto !important;
-            min-height: auto !important;
+            min-height: 100vh !important;
             overflow: visible !important;
             position: relative;
         }
@@ -566,6 +574,128 @@
         }
     }
 
+    // ==================== FUNÇÕES DE COMPARTILHAMENTO ====================
+    window.copiarLink = function(event) {
+        event.preventDefault();
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+            alert('Link copiado para a área de transferência!');
+        }).catch(() => {
+            alert('Não foi possível copiar o link.');
+        });
+        document.getElementById('shareOptions').classList.remove('show');
+    }
+
+    window.compartilharFacebook = function(event) {
+        event.preventDefault();
+        const url = window.location.href;
+        window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url), '_blank');
+        document.getElementById('shareOptions').classList.remove('show');
+    }
+
+    window.compartilharTwitter = function(event) {
+        event.preventDefault();
+        const url = window.location.href;
+        const text = 'FAQ - Portal da Transparência MG';
+        window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url), '_blank');
+        document.getElementById('shareOptions').classList.remove('show');
+    }
+
+    window.compartilharWhatsApp = function(event) {
+        event.preventDefault();
+        const url = window.location.href;
+        window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent('Confira o FAQ do Portal da Transparência MG: ' + url), '_blank');
+        document.getElementById('shareOptions').classList.remove('show');
+    }
+
+    // ==================== FUNÇÕES DE EXPORTAÇÃO ====================
+    function exportToCSV() {
+        const headers = ['Categoria', 'Pergunta', 'Resposta'];
+        const rows = filteredFaq.map(item => [item.categoria, item.pergunta, item.resposta]);
+        
+        let csvContent = headers.join(',') + '\n';
+        rows.forEach(row => {
+            const escapedRow = row.map(cell => {
+                if (cell.includes(',') || cell.includes('"') || cell.includes('\n')) {
+                    return '"' + cell.replace(/"/g, '""') + '"';
+                }
+                return cell;
+            }).join(',');
+            csvContent += escapedRow + '\n';
+        });
+        
+        const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'faq_transparencia_mg.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+
+    async function exportToPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        
+        doc.setFontSize(18);
+        doc.setTextColor(41, 67, 90);
+        doc.text('FAQ - Portal da Transparência de Minas Gerais', 14, 20);
+        
+        doc.setFontSize(10);
+        doc.setTextColor(100, 100, 100);
+        const dataAtualizacao = document.getElementById('data-atualizacao-header')?.innerText || new Date().toLocaleDateString('pt-BR');
+        doc.text(`Atualizado em: ${dataAtualizacao}`, 14, 28);
+        
+        let yOffset = 40;
+        let pageNumber = 1;
+        
+        for (const item of filteredFaq) {
+            if (yOffset > 270) {
+                doc.addPage();
+                yOffset = 20;
+                pageNumber++;
+            }
+            
+            doc.setFontSize(12);
+            doc.setTextColor(185, 60, 66);
+            doc.setFont('helvetica', 'bold');
+            const categoriaLines = doc.splitTextToSize(`📁 ${item.categoria}`, 180);
+            doc.text(categoriaLines, 14, yOffset);
+            yOffset += (categoriaLines.length * 7) + 3;
+            
+            if (yOffset > 270) {
+                doc.addPage();
+                yOffset = 20;
+                pageNumber++;
+            }
+            
+            doc.setFontSize(11);
+            doc.setTextColor(41, 67, 90);
+            doc.setFont('helvetica', 'bold');
+            const perguntaLines = doc.splitTextToSize(`❓ ${item.pergunta}`, 180);
+            doc.text(perguntaLines, 14, yOffset);
+            yOffset += (perguntaLines.length * 6) + 3;
+            
+            if (yOffset > 270) {
+                doc.addPage();
+                yOffset = 20;
+                pageNumber++;
+            }
+            
+            doc.setFontSize(10);
+            doc.setTextColor(80, 80, 80);
+            doc.setFont('helvetica', 'normal');
+            const respostaLines = doc.splitTextToSize(`💡 ${item.resposta}`, 180);
+            doc.text(respostaLines, 14, yOffset);
+            yOffset += (respostaLines.length * 5) + 8;
+        }
+        
+        doc.save('faq_transparencia_mg.pdf');
+    }
+
     // ==================== INICIALIZAÇÃO ====================
     document.addEventListener('DOMContentLoaded', function() {
         console.log('FAQ Transparência MG - Inicializando...');
@@ -577,6 +707,10 @@
         // Configurar eventos
         const btnPesquisar = document.getElementById('btnPesquisar');
         const btnLimpar = document.getElementById('btnLimpar');
+        const exportCSV = document.getElementById('exportCSV');
+        const exportPDF = document.getElementById('exportPDF');
+        const shareButton = document.getElementById('shareButton');
+        const shareOptions = document.getElementById('shareOptions');
         
         if (btnPesquisar) {
             btnPesquisar.addEventListener('click', aplicarFiltros);
@@ -584,6 +718,27 @@
         
         if (btnLimpar) {
             btnLimpar.addEventListener('click', limparFiltros);
+        }
+        
+        if (exportCSV) {
+            exportCSV.addEventListener('click', exportToCSV);
+        }
+        
+        if (exportPDF) {
+            exportPDF.addEventListener('click', exportToPDF);
+        }
+        
+        if (shareButton && shareOptions) {
+            shareButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                shareOptions.classList.toggle('show');
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!shareButton.contains(e.target) && !shareOptions.contains(e.target)) {
+                    shareOptions.classList.remove('show');
+                }
+            });
         }
         
         // Enter no campo de pesquisa
